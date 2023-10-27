@@ -7,10 +7,13 @@ const ampouleEtat = ref('');
 const relayIsOn = ref(null);
 
 const fetchDeviceStatus = async () => {
+  const deviceId = '4022d88e30e8';
+  const authKey = 'MWNiMjY5dWlk404459961993DCA83AE44BC6E3A6F58906952E7BECA0A5B69DC375C964915ACBC0EA536A0639CB73';
+
+  const apiUrl = `https://shelly-77-eu.shelly.cloud/device/status?id=${deviceId}&auth_key=${authKey}`;
+
   try {
-    const response = await fetch(
-        'https://shelly-86-eu.shelly.cloud/device/status?id=80646F827174&auth_key=MWRmYzM2dWlkE62C6C4C76F817CE0A3D2902F5B5D4C115E49B28CF8539114D9246505DE5D368D560D06020A92480'
-    );
+    const response = await fetch(apiUrl);
     const data = await response.json();
 
     if (data.isok) {
@@ -34,11 +37,14 @@ const updateAmpouleState = (isRelayOn) => {
 
 // Fonction pour allumer la prise
 const toggleRelay = async (isOn) => {
+  const deviceId = '4022d88e30e8';
+  const authKey = 'MWNiMjY5dWlk404459961993DCA83AE44BC6E3A6F58906952E7BECA0A5B69DC375C964915ACBC0EA536A0639CB73';
+  const turn = isOn ? 'on' : 'off';
+
+  const apiUrl = `https://shelly-77-eu.shelly.cloud/device/relay/control?channel=0&turn=${turn}&id=${deviceId}&auth_key=${authKey}`;
+
   try {
-    const turn = isOn ? 'on' : 'off';
-    const response = await axios.post(
-        `https://shelly-86-eu.shelly.cloud/device/relay/control?channel=0&turn=${turn}&id=80646F827174&auth_key=MWRmYzM2dWlkE62C6C4C76F817CE0A3D2902F5B5D4C115E49B28CF8539114D9246505DE5D368D560D06020A92480`
-    );
+    const response = await axios.post(apiUrl);
 
     if (response.data.isok) {
       relayIsOn.value = isOn;
