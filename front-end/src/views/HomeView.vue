@@ -5,6 +5,10 @@ import axios from 'axios';
 const ampouleImage = ref('');
 const ampouleEtat = ref('');
 const relayIsOn = ref(null);
+const ampouleIp = ref('');
+const ampouleWifiSsid = ref('');
+const ampouleTemperature = ref('');
+
 
 const fetchDeviceStatus = async () => {
   const deviceId = '4022d88e30e8';
@@ -19,11 +23,20 @@ const fetchDeviceStatus = async () => {
     if (data.isok) {
       relayIsOn.value = data.data.device_status.relays[0].ison;
       updateAmpouleState(relayIsOn.value);
+
+      const ip = data.data.device_status.wifi_sta.ip;
+      const wifiSsid = data.data.device_status.wifi_sta.ssid;
+      const temperature = data.data.device_status.temperature;
+
+      ampouleIp.value = ip;
+      ampouleWifiSsid.value = wifiSsid;
+      ampouleTemperature.value = temperature;
     }
   } catch (error) {
     console.error('Erreur lors de la récupération des données de l\'API', error);
   }
 };
+
 
 const updateAmpouleState = (isRelayOn) => {
   if (isRelayOn) {
@@ -35,7 +48,6 @@ const updateAmpouleState = (isRelayOn) => {
   }
 };
 
-// Fonction pour allumer la prise
 const toggleRelay = async (isOn) => {
   const deviceId = '4022d88e30e8';
   const authKey = 'MWNiMjY5dWlk404459961993DCA83AE44BC6E3A6F58906952E7BECA0A5B69DC375C964915ACBC0EA536A0639CB73';
@@ -49,6 +61,13 @@ const toggleRelay = async (isOn) => {
     if (response.data.isok) {
       relayIsOn.value = isOn;
       updateAmpouleState(isOn);
+
+      const dbState = isOn ? 1 : 0;
+      const dbApiUrl = 'https://127.0.0.1:8000/api/statess';
+      await axios.post(dbApiUrl, {
+        datatime: new Date().toISOString(),
+        state: dbState
+      });
     }
   } catch (error) {
     console.error(`Erreur lors de la mise à jour de la prise (état : ${isOn ? 'Allumé' : 'Éteint'})`, error);
@@ -74,7 +93,12 @@ onMounted(() => {
     <div class="home-view">
       <div class="ampoule">
         <img :src="ampouleImage" alt="">
-        <span>{{ ampouleEtat }}</span>
+        <div class="info-texte-lampe">
+          <span>{{ ampouleEtat }}</span>
+          <span>IP: {{ ampouleIp }}</span>
+          <span>Réseau Wi-Fi: {{ ampouleWifiSsid }}</span>
+          <span>Température: {{ ampouleTemperature }} °C</span>
+        </div>
       </div>
       <div class="info-prise">
         <h2>Informations de la prise</h2>
