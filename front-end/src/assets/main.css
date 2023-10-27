@@ -160,6 +160,12 @@ main{
                 width: 250px;
             }
         }
+        .info-texte-lampe{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
         .info-prise{
             width: 50%;
             display: flex;
