@@ -1,4 +1,32 @@
 <script setup>
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+
+const states = ref([]);
+
+const formatDateTime = (datetime) => {
+  const date = new Date(datetime);
+  const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} - ${formatTime(date)}`;
+  return formattedDate;
+};
+
+const formatTime = (date) => {
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+  return `${hours}:${minutes}:${seconds}`;
+};
+
+onMounted(async () => {
+  try {
+    const response = await axios.get('https://127.0.0.1:8000/api/statess');
+    states.value = response.data['hydra:member'];
+
+    states.value.reverse();
+  } catch (error) {
+    console.error('Erreur lors de la récupération des données :', error);
+  }
+});
 </script>
 
 <template>
@@ -16,29 +44,10 @@
         </tr>
       </thead>
       <tbody>
-      <tr>
-        <td>01/01/2021</td>
-        <td>Allumé</td>
-      </tr>
-      <tr>
-        <td>02/01/2021</td>
-        <td>Éteinte</td>
-      </tr>
-      <tr>
-        <td>01/01/2021</td>
-        <td>Allumé</td>
-      </tr>
-      <tr>
-        <td>02/01/2021</td>
-        <td>Éteinte</td>
-      </tr>
-      <tr>
-        <td>01/01/2021</td>
-        <td>Allumé</td>
-      </tr>
-      <tr>
-        <td>02/01/2021</td>
-        <td>Éteinte</td>
+
+      <tr v-for="state in states" :key="state.id">
+        <td>{{ formatDateTime(state.datatime) }}</td>
+        <td>{{ state.state ? 'Allumé' : 'Éteinte' }}</td>
       </tr>
       </tbody>
     </table>
