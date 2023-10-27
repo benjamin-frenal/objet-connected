@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&display=swap');
+
+
+html, body{
+    height: 100vh;
+    margin: 0;
+    background-color: #222222;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+}
+img{
+    max-width: 100%;
+}
+#app{
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+}
+header{
+    display: flex;
+    flex-direction: column;
+    row-gap: 50px;
+    width: 20%;
+    min-width: 280px;
+    padding: 0 20px 25px;
+    border-right: 2px solid #464646;
+    .logo{
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        column-gap: 10px;
+        font-size: 20px;
+        font-weight: 600;
+       > img{
+            width: 50px;
+        }
+    }
+    > nav{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        > ul{
+            display: flex;
+            flex-direction: column;
+            row-gap: 20px;
+            width: 80%;
+            padding: 0;
+            margin: 0;
+            > li{
+                list-style: none;
+                > a{
+                    text-decoration: none;
+                    > div{
+                        display: flex;
+                        align-items: center;
+                        column-gap: 12px;
+                        padding: 12px 20px 12px 20px;
+                        border-radius: 20px;
+                        color: white;
+                        transition: all 0.5s;
+                        > svg{
+                            fill: white;
+                            transition: all 0.5s;
+                        }
+                        > span{
+                            text-transform: uppercase;
+                            font-weight: 700;
+                        }
+                        &:hover{
+                            color: #222222;
+                            background-color: #55FFF5;
+                            > svg{
+                                fill: #222222;
+                            }
+                        }
+                    }
+                    .active{
+                        color: #222222;
+                        background-color: #55FFF5;
+                        > svg{
+                            fill: #222222;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    >:last-child {
+        margin-top: auto;
+        text-decoration: none;
+        > div{
+            display: flex;
+            align-items: center;
+            column-gap: 12px;
+            padding: 12px 20px 12px 20px;
+            border-radius: 20px;
+            color: white;
+            transition: all 0.5s;
+            > svg{
+                fill: white;
+                transition: all 0.5s;
+            }
+            > span{
+                text-transform: uppercase;
+                font-weight: 700;
+            }
+            &:hover{
+                color: #222222;
+                background-color: #55FFF5;
+                > svg{
+                    fill: #222222;
+                }
+            }
+        }
+        .active{
+            color: #222222;
+            background-color: #55FFF5;
+            > svg{
+                fill: #222222;
+            }
+        }
+    }
+}
+main{
+    position: relative;
+    width: 80%;
+    padding: 50px;
+    height: calc(100% - 100px);
+    overflow-y: scroll;
+    .header-profil{
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        column-gap: 8px;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        > img{
+            width: 50px;
+            border-radius: 100%;
+        }
+        .header-profil-name{
+            border-radius: 10px;
+            font-size: 14px;
+            border: 1px solid #464646;
+            padding: 10px;
+        }
+    }
+    .home-view{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 100px;
+        .ampoule{
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            row-gap: 20px;
+            align-items: center;
+            > img{
+                width: 250px;
+            }
+        }
+        .info-prise{
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            .buttons{
+                margin-top: auto;
+                display: flex;
+                column-gap: 20px;
+                > a{
+                    display: flex;
+                    align-items: center;
+                    column-gap: 6px;
+                    padding: 14px 20px;
+                    border-radius: 6px;
+                    text-decoration: none;
+                    font-weight: 500;
+                    cursor: pointer;
+                }
+                #on{
+                    background-color: #55FFF5;
+                    color: #222222;
+                    &:hover{
+                        background-color: #10bdcc;
+                    }
+                }
+                #off{
+                    background-color: #ff5555;
+                    color: white;
+                    > svg{
+                        fill: white;
+                    }
+                    &:hover{
+                        background-color: #bb1010;
+                    }
+                }
+            }
+        }
+    }
+}
