@@ -19,7 +19,7 @@ const formatTime = (date) => {
 
 onMounted(async () => {
   try {
-    const response = await axios.get('https://127.0.0.1:8000/api/statess');
+    const response = await axios.get('https://127.0.0.1:8000/api/states');
     states.value = response.data['hydra:member'];
 
     states.value.reverse();
