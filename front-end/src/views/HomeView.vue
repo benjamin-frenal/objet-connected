@@ -79,7 +79,7 @@
         updateAmpouleState(isOn);
 
         const dbState = isOn ? 1 : 0;
-        const dbApiUrl = 'https://127.0.0.1:8000/api/states';
+        const dbApiUrl = 'https://127.0.0.1:8000/api/statess';
         await axios.post(dbApiUrl, {
           datatime: new Date().toISOString(),
           state: dbState
