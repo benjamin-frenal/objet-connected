@@ -78,12 +78,12 @@
         relayIsOn.value = isOn;
         updateAmpouleState(isOn);
 
-        const dbState = isOn ? 1 : 0;
-        const dbApiUrl = 'https://127.0.0.1:8000/api/statess';
-        await axios.post(dbApiUrl, {
-          datatime: new Date().toISOString(),
-          state: dbState
-        });
+        //const dbState = isOn ? 1 : 0;
+        //const dbApiUrl = 'https://127.0.0.1:8000/api/statess';
+        //await axios.post(dbApiUrl, {
+          //datatime: new Date().toISOString(),
+          //state: dbState
+        //});
       }
     } catch (error) {
       console.error(`Erreur lors de la mise à jour de la prise (état : ${isOn ? 'Allumé' : 'Éteint'})`, error);
@@ -119,7 +119,7 @@
       <div class="info-prise">
         <h2>Informations de la prise</h2>
         <p>
-          À gauche, nous pouvons apercevoir l'état actuel de la prise connectée au cloud.
+          À gauche, nous pouvons apercevoir l'état actuel de la prise connectée au cloud. Appuyé plusieurs fois et attendre 3 secondes le temps de l'actualisation
         </p>
         <div class="buttons">
           <a id="on" @click="toggleRelayWithAxios(true)">Allumer <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"/></svg></a>
